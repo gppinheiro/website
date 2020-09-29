@@ -1,18 +1,21 @@
 <?php
+	session_start();
+
 	require_once "Mail.php";
 
 	$from = 'bot.csgd@gmail.com';
 	$to = 'guigaspp@gmail.com';
 
-	$subject = $_REQUEST['subject'];
-	$name = $_REQUEST['name'];
-    $cmessage = $_REQUEST['message'];
+	$name = $_POST['name'];
+	$email = $_POST['email'];
+    $message = $_POST['message'];
+	$subject = $_POST['subject'];
 
-	$message = '<html><body>';
-	$message .= "<tr><td><strong>Nome: </strong> </td><td>". strip_tags($name) . "</td></tr>";
-	$message .= "<tr><td><strong>Email: </strong> </td><td>". strip_tags($from) . "</td></tr>";
-	$message .= "<tr><td><strong>Message: </strong> </td><td>". $cmessage . "</td></tr>";
-	$message .= "</body></html>";
+	$body = '<html><body>';
+	$body .= "<tr><td><strong>Nome: </strong> </td><td>". $name . "</td></tr>";
+	$body .= "<tr><td><strong>Email: </strong> </td><td>". $email . "</td></tr>";
+	$body .= "<tr><td><strong>Message: </strong> </td><td>". $message . "</td></tr>";
+	$body .= "</body></html>";
 	
 	$headers = array(
 		'From' => $from,
@@ -28,12 +31,13 @@
 			'password' => 'saoclaudio2021'
 		));
 	
-	$mail = $smtp->send($to, $headers, $message);
+	$mail = $smtp->send($to, $headers, $body);
 	
 	if (PEAR::isError($mail)) {
 		echo('<p>' . $mail->getMessage() . '</p>');
+		exit();
 	} else {
-		echo('<p>Message successfully sent!</p>');
+		die('<p>Message successfully sent!</p>');
 	}
 	
 ?>
