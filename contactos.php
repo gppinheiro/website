@@ -4,18 +4,17 @@
 	require_once "Mail.php";
 
 	$from = 'bot.csgd@gmail.com';
-	$to = 'guigaspp@gmail.com';
+	$to = 'claudio_a96@hotmail.com';
 
 	$name = $_POST['name'];
 	$email = $_POST['email'];
     $message = $_POST['message'];
 	$subject = $_POST['subject'];
 
-	$body = '<html><body>';
-	$body .= "<tr><td><strong>Nome: </strong> </td><td>". $name . "</td></tr>";
-	$body .= "<tr><td><strong>Email: </strong> </td><td>". $email . "</td></tr>";
-	$body .= "<tr><td><strong>Message: </strong> </td><td>". $message . "</td></tr>";
-	$body .= "</body></html>";
+	$body = "CONTACTOS\r\n";
+	$body .= "Nome: ". $name . "\r\n";
+	$body .= "Email: ". $email . "\r\n";
+	$body .= "Message: ". $message . "\r\n";
 	
 	$headers = array(
 		'From' => $from,
@@ -37,7 +36,7 @@
 		echo('<p>' . $mail->getMessage() . '</p>');
 		exit();
 	} else {
-		die('<p>Message successfully sent!</p>');
+		echo("<script type='text/javascript'> window.location.href='contactos.html';</script>"); 
+		exit();
 	}
-	
 ?>
